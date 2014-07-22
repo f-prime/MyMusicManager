@@ -27,8 +27,8 @@ def main():
         pygame.draw.rect(screen, (0, 255, 0), skip)
         pygame.draw.rect(screen, (0, 255, 0), prev)
 
-        if song:
-            screen.blit(font.render(song, -1, (0,0,0)), (10, 40))
+        
+        screen.blit(font.render(songs[on], -1, (0,0,0)), (10, 40))
 
 
         if playing:

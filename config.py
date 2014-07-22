@@ -1,2 +1,2 @@
-ip = "localhost"
+ip = "192.168.1.3"
 port = 5555

@@ -19,7 +19,7 @@ def main():
     getSong.getSong(songs[on])
     sound = pygame.mixer.Sound("tmp") 
     channel = sound.play()
-     
+    get_next = True 
     while True:
         clock.tick(60)
         screen.fill((255,255,255))
@@ -42,10 +42,19 @@ def main():
                         on += 1
                     else:
                         on = 0
-                    getSong.getSong(songs[on])
+                    get_next = True
                     sound = pygame.mixer.Sound("tmp")
-                    sound.play()
-            
+                    channel = sound.play()
+        
+
+        if get_next:
+            if on < len(songs) - 1:
+                o = on + 1
+            else:
+                o = 0
+            getSong.getSong(songs[o])
+            get_next = False
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -59,7 +68,7 @@ def main():
                         channel.pause()
                         playing = False
 
-                elif skip.collidepoint(mouse):
+                elif skip.collidepoint(mouse) and not get_next:
                     channel.pause()
                     if on < len(songs) - 1:
                         on += 1

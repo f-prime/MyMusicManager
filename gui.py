@@ -2,6 +2,7 @@ import pygame
 import getNames
 import getSong
 import sys
+import random
 
 def main():
     screen = pygame.display.set_mode((600, 100))
@@ -13,6 +14,7 @@ def main():
     pygame.font.init()
     font = pygame.font.Font("BlissfulThinking.otf", 25)
     songs = getNames.getNames()
+    random.shuffle(songs)
     on = 0
     pygame.mixer.init()
     clock = pygame.time.Clock()
@@ -20,17 +22,21 @@ def main():
     sound = pygame.mixer.Sound("tmp") 
     channel = sound.play()
     get_next = True 
+    
+    playImg = pygame.image.load("play.png").convert()
+    pauseImg = pygame.image.load("pause.png").convert()
+    skipImg = pygame.image.load("skip.png").convert()
+    prevImg = pygame.image.load("prev.png").convert()
+
     while True:
         clock.tick(60)
         screen.fill((255,255,255))
         if playing:
-            pygame.draw.rect(screen, (255, 0, 0), play)
+            screen.blit(pauseImg, (play.x, play.y))
         else:
-            pygame.draw.rect(screen, (0, 0, 255), play)
-        
-        pygame.draw.rect(screen, (0, 255, 0), skip)
-        pygame.draw.rect(screen, (0, 255, 0), prev)
-
+            screen.blit(playImg, (play.x, play.y))
+        screen.blit(skipImg, (skip.x, skip.y))
+        screen.blit(prevImg, (prev.x, prev.y))
         
         screen.blit(font.render(str(songs[on]), -1, (0,0,0)), (10, 40))
 
